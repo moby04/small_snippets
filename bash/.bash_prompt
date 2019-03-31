@@ -5,21 +5,22 @@ DIR_COLOR="$(tput setaf 4)"
 GIT_BRANCH_COLOR="$(tput setaf 3)"
 RESET_COLOR="$(tput sgr0)"
 
-if [ -z "$PROMPT_KUBECTL" ]; then
-	export PROMPT_KUBECTL=0
-	export PROMPT_GIT=1
+export PROMPT_KUBECTL=0
+export PROMPT_GIT=1
 	
-	KUBE_PS1_PREFIX=''
-	KUBE_PS1_SEPARATOR=''
-	KUBE_PS1_SUFFIX='➙'
-	KUBE_PS1_SYMBOL_ENABLE=true
-	KUBE_PS1_SYMBOL_USE_IMG=true
-fi;
+KUBE_PS1_PREFIX=''
+KUBE_PS1_SEPARATOR=''
+KUBE_PS1_SUFFIX='➙'
+KUBE_PS1_SYMBOL_ENABLE=true
+KUBE_PS1_SYMBOL_USE_IMG=true
 
 enableKubectlPrompt() {
+	kubeon
+	_kube_ps1_update_cache
         export PROMPT_KUBECTL=1
 }       
 disableKubectlPrompt() {
+	kubeoff
         export PROMPT_KUBECTL=0
 }       
 enableGitPrompt() {

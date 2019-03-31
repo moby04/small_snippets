@@ -5,8 +5,16 @@ DIR_COLOR="$(tput setaf 4)"
 GIT_BRANCH_COLOR="$(tput setaf 3)"
 RESET_COLOR="$(tput sgr0)"
 
-export PROMPT_KUBECTL=0
-export PROMPT_GIT=0
+if [ -z "$PROMPT_KUBECTL" ]; then
+	export PROMPT_KUBECTL=0
+	export PROMPT_GIT=0
+	
+	KUBE_PS1_PREFIX=''
+	KUBE_PS1_SEPARATOR=''
+	KUBE_PS1_SUFFIX='>'
+	KUBE_PS1_SYMBOL_ENABLE=true
+	KUBE_PS1_SYMBOL_USE_IMG=true
+fi;
 
 enableKubectlPrompt() {
         export PROMPT_KUBECTL=1
@@ -30,6 +38,8 @@ xterm*|rxvt*)
     ;;
 esac
 
+source ~/apps/kube-ps1/kube-ps1.sh
+
 git_branch_prompt() {
   if [ $PROMPT_GIT -eq 1 ]; then	
     
@@ -45,4 +55,5 @@ conditional_kubectl_prompt() {
 	fi;
 }
 # \[\033[01;32m\] <- user color, bold neon green
-PS1='${debian_chroot:+($debian_chroot)}$(conditional_kubectl_prompt)\[\033[01;32m\]\u@\h${RESET_COLOR}:${DIR_COLOR}\w${GIT_BRANCH_COLOR}$(git_branch_prompt)${RESET_COLOR}$ '
+PS1='\[\033[00;33m\]╭${debian_chroot:+($debian_chroot)}$(conditional_kubectl_prompt)\[\033[01;32m\]\u@\h${RESET_COLOR}:${DIR_COLOR}\w\[\033[01;35m\]$(git_branch_prompt)\[\033[01;33m\]\n╰$ ${RESET_COLOR}'
+PS2='\[\033[01;33m\]-> ${RESET_COLOR}'

@@ -54,6 +54,22 @@ conditional_kubectl_prompt() {
 		fi;
 	fi;
 }
-# \[\033[01;32m\] <- user color, bold neon green
-PS1='\[\033[00;33m\]╭${debian_chroot:+($debian_chroot)}$(conditional_kubectl_prompt)\[\033[01;32m\]\u@\h\[${RESET_COLOR}\]:${DIR_COLOR}\w\[\033[01;35m\]\[$(git_branch_prompt)\]\[\033[01;33m\]\n╰$ \[${RESET_COLOR}\]'
+#set up initial curve of the prompt "box"
+PS1='\[\033[00;33m\]╭${debian_chroot:+($debian_chroot)}'
+
+#add kubectl context if enabled
+PS1=$PS1'$(conditional_kubectl_prompt)'
+
+#display user and hostname
+PS1=$PS1'\[\033[01;32m\]\u@\h'
+
+#now show current location in dir tree
+PS1=$PS1'\[${RESET_COLOR}\]:${DIR_COLOR}\w\[\033[01;35m\]'
+
+#append git branch if enabled
+PS1=$PS1'\[$(git_branch_prompt)\]\[\033[01;33m\]'
+
+#go to new line and finish prompt
+PS1=$PS1'\n╰$ \[${RESET_COLOR}\]'
+
 PS2='\[\033[01;33m\]-> \[${RESET_COLOR}\]'

@@ -7,7 +7,7 @@ RESET_COLOR="$(tput sgr0)"
 
 if [ -z "$PROMPT_KUBECTL" ]; then
 	export PROMPT_KUBECTL=0
-	export PROMPT_GIT=0
+	export PROMPT_GIT=1
 	
 	KUBE_PS1_PREFIX=''
 	KUBE_PS1_SEPARATOR=''
@@ -55,7 +55,7 @@ conditional_kubectl_prompt() {
 	fi;
 }
 #set up initial curve of the prompt "box"
-PS1='\[\033[00;33m\]╭${debian_chroot:+($debian_chroot)}'
+PS1='\[\033[01;33m\]╭${debian_chroot:+($debian_chroot)}'
 
 #add kubectl context if enabled
 PS1=$PS1'$(conditional_kubectl_prompt)'
@@ -67,9 +67,12 @@ PS1=$PS1'\[\033[01;32m\]\u@\h'
 PS1=$PS1'\[${RESET_COLOR}\]:${DIR_COLOR}\w\[\033[01;35m\]'
 
 #append git branch if enabled
-PS1=$PS1'\[$(git_branch_prompt)\]\[\033[01;33m\]'
+PS1=$PS1'\[$(git_branch_prompt)\]'
 
 #go to new line and finish prompt
-PS1=$PS1'\n╰$ \[${RESET_COLOR}\]'
+PS1=$PS1'\n\[\033[00;33m\]╰⎼$ \[${RESET_COLOR}\]'
 
-PS2='\[\033[01;33m\]-> \[${RESET_COLOR}\]'
+PS2='\[\033[00;33m\]  ± \[${RESET_COLOR}\]'
+
+PROMPT_COMMAND='echo -en "\033]0; $("pwd") \a"'
+

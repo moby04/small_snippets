@@ -16,14 +16,6 @@ vpnRoute() {
 	sudo ip route add $(dig wiki.sitewards.net +short)/32 via 192.168.4.1 dev $DEVICE
 }
 
-dockerStop() {
-	if [ $# -gt 0 ]; then
-		docker ps -a |grep -v IMAGE | grep $@ | grep -v Exited | awk '{print $1}' | xargs docker stop
-	else
-		docker ps -a |grep -v IMAGE | grep -v Exited | awk '{print $1}' | xargs docker stop
-	fi
-}
+alias sshi="ssh -o IdentitiesOnly=yes -i" 
 
-dockerRemove() {
-	docker rm $(docker ps -a -q) && docker rmi --force $(docker images -q)
-}
+alias azdocker="docker run -it microsoft/azure-cli"

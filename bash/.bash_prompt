@@ -15,9 +15,9 @@ KUBE_PS1_SYMBOL_ENABLE=true
 KUBE_PS1_SYMBOL_USE_IMG=true
 
 enableKubectlPrompt() {
+        export PROMPT_KUBECTL=1
 	kubeon
 	_kube_ps1_update_cache
-        export PROMPT_KUBECTL=1
 }       
 disableKubectlPrompt() {
 	kubeoff

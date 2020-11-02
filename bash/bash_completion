@@ -13,11 +13,13 @@ if ! shopt -oq posix; then
 fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/tkaplonski/apps/google-cloud-sdk/completion.bash.inc' ]; then source '/home/tkaplonski/apps/google-cloud-sdk/completion.bash.inc'; fi
+if [ -f '/home/tkaplonski/apps/google-cloud-sdk/completion.bash.inc' ]; 
+	then source '/home/tkaplonski/apps/google-cloud-sdk/completion.bash.inc'; 
+fi
 
-# completion for kubectl
-source <(kubectl completion bash)
+if $(hash kubectl 2> /dev/null); then
+	# completion for kubectl
+	source <(kubectl completion bash)
+fi
 
-complete -C /home/tkaplonski/bin/minio-client mc
 
-complete -C /home/tkaplonski/bin/mclient mc

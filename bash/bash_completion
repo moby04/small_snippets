@@ -1,4 +1,4 @@
-# vim: filetype=sh
+# vim: filetype=bash
 
 
 # enable programmable completion features (you don't need to enable
@@ -22,4 +22,10 @@ if $(hash kubectl 2> /dev/null); then
 	source <(kubectl completion bash)
 fi
 
+if [ -f /home/tkaplonski/scripts/anssh/anssh ]; then
+	source <(_ANSSH_COMPLETE=source /home/tkaplonski/scripts/anssh/anssh) 
+fi
 
+if $(hash aws_completer 2> /dev/null); then
+	complete -C '/usr/local/bin/aws_completer' aws
+fi

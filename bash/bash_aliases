@@ -1,21 +1,13 @@
-alias cd..="cd .."
+# vim: filetype=bash
 
-vpnRoute() {
-	DEVICE="$1"
-	
-	if [ $# != 1 ]; then
-		echo "Usage: vpnRoute <device>"
-		return 1
-	fi;
-	
-	if [ `ip addr | grep " $DEVICE:" | wc -l` = 0 ]; then
-		echo "Provided device ($DEVICE) not found"
-		return 1
-	fi;
-	
-	sudo ip route add $(dig wiki.sitewards.net +short)/32 via 192.168.4.1 dev $DEVICE
-}
+alias cd..="cd .."
 
 alias sshi="ssh -o IdentitiesOnly=yes -i" 
 
 alias azdocker="docker run -it microsoft/azure-cli"
+
+github_latest_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+    grep '"tag_name":' |                                            # Get tag line
+    sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+}

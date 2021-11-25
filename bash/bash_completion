@@ -29,3 +29,7 @@ fi
 if $(hash aws_completer 2> /dev/null); then
 	complete -C '/usr/local/bin/aws_completer' aws
 fi
+
+if $(hash terraform 2> /dev/null); then
+	complete -C terraform terraform
+fi

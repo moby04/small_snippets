@@ -1,9 +1,5 @@
 # vim: filetype=bash
 
-alias cd..="cd .."
-
-alias sshi="ssh -o IdentitiesOnly=yes -i" 
-
 alias azdocker="docker run -it microsoft/azure-cli"
 
 github_latest_release() {

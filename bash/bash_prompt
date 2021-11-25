@@ -39,7 +39,7 @@ xterm*|rxvt*)
     ;;
 esac
 
-source ~/apps/kube-ps1/kube-ps1.sh
+source /home/tkaplonski/apps/kube-ps1/kube-ps1.sh
 
 git_branch_prompt() {
   if [ $PROMPT_GIT -eq 1 ]; then	
